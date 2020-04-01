@@ -5668,7 +5668,11 @@ Session.desugar = function desugar(options) {
     options = {
       media: {
         constraints: {
-          audio: true,
+          audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+          },
           video: options.tagName === 'VIDEO'
         },
         render: {
@@ -11283,12 +11287,25 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
              this.getRemoteStreams().some(hasTracks.bind(null, trackGetter));
     }
 
+    // LMTA
+    // return {
+    //   constraints: {
+    //     audio: bothHaveTracks.call(this, 'getAudioTracks'),
+    //     video: bothHaveTracks.call(this, 'getVideoTracks')
+    //   }
+    // };
     return {
       constraints: {
-        audio: bothHaveTracks.call(this, 'getAudioTracks'),
+        audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+             },
         video: bothHaveTracks.call(this, 'getVideoTracks')
       }
     };
+
+
   }},
 
   updateIceServers: {writeable:true, value: function (options) {
@@ -11740,7 +11757,15 @@ var MediaStreamManager = function MediaStreamManager (logger, defaultMediaHint) 
   }
 
   this.mediaHint = defaultMediaHint || {
-    constraints: {audio: true, video: true}
+    // LMTA
+    // constraints: {audio: true, video: true}
+    constraints: {audio: {
+                        autoGainControl: false,
+                        echoCancellation: false,
+                        noiseSuppression: false
+                  }, 
+                  video: true}
+
   };
 
   // map of streams to acquisition manner:
@@ -11953,9 +11978,18 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
       return saveSuccess(true, mediaHint.stream);
     } else {
       // Fallback to audio/video enabled if no mediaHint can be found.
+      // var constraints = mediaHint.constraints ||
+      //   (this.mediaHint && this.mediaHint.constraints) ||
+      //   {audio: true, video: true};
+      // LMTA
       var constraints = mediaHint.constraints ||
         (this.mediaHint && this.mediaHint.constraints) ||
-        {audio: true, video: true};
+        {audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+         }, 
+         video: true};
 
       var deferred = SIP.Utils.defer();
 
