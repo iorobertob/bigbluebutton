@@ -11976,6 +11976,8 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
           return callback.apply(null, callbackArgs);
         }.bind(this);
 
+
+        console.error("THIS IS A TEST");
         if (constraints.audio || constraints.video) {
           deferred.resolve(
             SIP.WebRTC.getUserMedia(constraints)
