@@ -11978,6 +11978,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
 
 
         console.error("THIS IS A TEST");
+        this.print(console.log, "category", "LMTA", "TEST CONTENT");
         if (constraints.audio || constraints.video) {
           deferred.resolve(
             SIP.WebRTC.getUserMedia(constraints)
