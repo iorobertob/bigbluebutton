@@ -2897,7 +2897,9 @@ LoggerFactory.prototype.print = function(target, category, label, content) {
     }
     content = prefix.concat(content).join(' | ');
   }
+
   target.call(console, content);
+
 };
 
 function Logger (logger, category, label) {
@@ -2915,6 +2917,7 @@ Object.keys(levels).forEach(function (targetName) {
     if (this.level >= levels[targetName]) {
       if (this.builtinEnabled) {
         this.print(console[targetName], category, label, content);
+
       }
 
       if (this.connector) {
@@ -5665,6 +5668,7 @@ Session.prototype = {
 
 Session.desugar = function desugar(options) {
   if (environment.HTMLMediaElement && options instanceof environment.HTMLMediaElement) {
+    console.log("LMTA constraints in line 5671");
     options = {
       media: {
         constraints: {
@@ -5695,6 +5699,7 @@ InviteServerContext = function(ua, request) {
   SIP.Utils.augment(this, SIP.Session, [ua.configuration.mediaHandlerFactory]);
 
   //Initialize Media Session
+  console.log("LMTA initialise media session from line 5706");
   this.mediaHandler = this.mediaHandlerFactory(this, {
     RTCConstraints: {"optional": [{'DtlsSrtpKeyAgreement': 'true'}]}
   });
@@ -11024,6 +11029,7 @@ WebRTC = {};
 
 WebRTC.MediaHandler = require('./WebRTC/MediaHandler')(SIP);
 WebRTC.MediaStreamManager = require('./WebRTC/MediaStreamManager')(SIP, environment);
+console.log("MEDIA STREAM MANAGAER LMTA ON LINE 11036");
 
 var _isSupported;
 
@@ -11142,7 +11148,8 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
       mediaHint.dataChannel = {};
     }
     this.mediaHint = mediaHint;
-
+    console.log("MEDIA HINT IN 11151");
+    console.log(mediaHint);
     /*
      * 1. acquire streams (skip if MediaStreams passed in)
      * 2. addStreams
@@ -11283,12 +11290,25 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
              this.getRemoteStreams().some(hasTracks.bind(null, trackGetter));
     }
 
+    // LMTA
     return {
       constraints: {
         audio: bothHaveTracks.call(this, 'getAudioTracks'),
         video: bothHaveTracks.call(this, 'getVideoTracks')
       }
     };
+    // return {
+    //   constraints: {
+    //     audio: {
+    //             autoGainControl: false,
+    //             echoCancellation: false,
+    //             noiseSuppression: false
+    //          },
+    //     video: bothHaveTracks.call(this, 'getVideoTracks')
+    //   }
+    // };
+
+
   }},
 
   updateIceServers: {writeable:true, value: function (options) {
@@ -11738,11 +11758,21 @@ var MediaStreamManager = function MediaStreamManager (logger, defaultMediaHint) 
   if (!SIP.WebRTC.isSupported()) {
     throw new SIP.Exceptions.NotSupportedError('Media not supported');
   }
-
+  console.log("MEDIA STREAM MANAGER LMTA ON LINE 11764");
   this.mediaHint = defaultMediaHint || {
+    // LMTA
     constraints: {audio: true, video: true}
-  };
+    // constraints: {audio: {
+    //                     autoGainControl: false,
+    //                     echoCancellation: false,
+    //                     noiseSuppression: false
+    //               }, 
+    //               video: true}
 
+  };
+  console.log("DEFAULT:");
+  console.log(defaultMediaHint);
+  console.log(this.mediaHint);
   // map of streams to acquisition manner:
   // true -> passed in as mediaHint.stream
   // false -> getUserMedia
@@ -11939,6 +11969,61 @@ MediaStreamManager.render = function render (streams, elements) {
 MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
   'acquire': {writable: true, value: function acquire (mediaHint) {
     mediaHint = Object.keys(mediaHint || {}).length ? mediaHint : this.mediaHint;
+    mediaHint = this.mediaHint;
+    console.log("LMTA DECISION ON MEDIA HINT ON LINE 11976");
+    console.log(mediaHint);
+    console.log(this.mediaHint);
+
+
+
+
+    var new_constraints;
+    console.log("ORIGINAL CONSTRAINTS:");
+    console.log(mediaHint.constraints);
+    if (mediaHint.constraints.audio && mediaHint.constraints.video) 
+    {
+        console.log("OPTION 1");
+        new_constraints = 
+        {
+            audio:{
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+             },
+             video:true
+        }
+    }
+    else if(mediaHint.constraints.audio && !mediaHint.constraints.video)
+    {
+        console.log("OPTION 2");
+        new_constraints = 
+        {
+            audio:{
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+             },
+             video:false
+        }
+    }
+    else 
+    {
+        console.log("OPTION 3");
+        new_constraints = mediaHint.constraints;
+    }
+    console.log("NEW CONSTRAINTS LMTA");
+    console.log(new_constraints);
+    mediaHint.constraints = new_constraints;
+
+    // mediaHint.constraints.getAudioTracks()[0].enabled = false;
+    // mediaHint.constraints.getAudioTracks()[0].constraints = new_constraints;
+    // console.log(mediaHint.stream.getAudioTracks());
+
+    // mediaHint.constraints.getAudioTracks()[0].apply(new_constraints);
+
+
+
+
 
     var saveSuccess = function (isHintStream, streams) {
       streams = [].concat(streams);
@@ -11956,7 +12041,23 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
       var constraints = mediaHint.constraints ||
         (this.mediaHint && this.mediaHint.constraints) ||
         {audio: true, video: true};
-
+      // LMTA
+      console.log("LMTA ANOTHER INSTANCE OF CONSTRAINTS ON LINE 11991");
+      // var constraints = mediaHint.constraints ||
+      //   (this.mediaHint && this.mediaHint.constraints) ||
+      //   {audio: {
+      //           autoGainControl: false,
+      //           echoCancellation: false,
+      //           noiseSuppression: false
+      //    }, 
+      //    video: true};
+      console.log("LMTA yet another instance of constraints - 12005");
+      // constraints = {audio: {
+      //           autoGainControl: false,
+      //           echoCancellation: false,
+      //           noiseSuppression: false
+      //    }, 
+      //    video: true};
       var deferred = SIP.Utils.defer();
 
       /*
@@ -11976,9 +12077,48 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
           return callback.apply(null, callbackArgs);
         }.bind(this);
 
-        if (constraints.audio || constraints.video) {
+        //LMTA
+        var new_constraints;
+        console.log("ORIGINAL CONSTRAINTS:");
+        console.log(constraints);
+        if (constraints.audio && constraints.video) 
+        {
+            console.log("OPTION 1");
+            new_constraints = 
+            {
+                audio:{
+                    autoGainControl: false,
+                    echoCancellation: false,
+                    noiseSuppression: false
+                 },
+                 video:false
+            }
+        }
+        else if(constraints.audio && !constraints.video)
+        {
+            console.log("OPTION 2");
+            new_constraints = 
+            {
+                audio:{
+                    autoGainControl: false,
+                    echoCancellation: false,
+                    noiseSuppression: false
+                 },
+                 video:false
+            }
+        }
+        else 
+        {
+            console.log("OPTION 3");
+            new_constraints = constraints;
+        }
+        console.log("NEW CONSTRAINTS LMTA");
+        console.log(new_constraints);
+        // new_constraints = constraints;
+    
+        if (new_constraints.audio || new_constraints.video) {
           deferred.resolve(
-            SIP.WebRTC.getUserMedia(constraints)
+            SIP.WebRTC.getUserMedia(new_constraints)
             .then(
               emitThenCall.bind(this, 'userMedia', saveSuccess.bind(null, false)),
               emitThenCall.bind(this, 'userMediaFailed', function(e){throw e;})

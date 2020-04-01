@@ -60,7 +60,11 @@ class AudioStreamVolume extends Component {
     this.source = null;
 
     const constraints = {
-      audio: true,
+      audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+             },
     };
 
     const { deviceId } = this.props;

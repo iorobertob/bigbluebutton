@@ -324,11 +324,32 @@ class SIPSession {
       callExtension,
     } = this.callOptions;
 
+    // LMTA
+    // const options = {
+    //   media: {
+    //     stream: inputStream,
+    //     constraints: {
+    //       audio: true,
+    //       video: false,
+    //     },
+    //     render: {
+    //       remote: document.querySelector(MEDIA_TAG),
+    //     },
+    //   },
+    //   RTCConstraints: {
+    //     offerToReceiveAudio: true,
+    //     offerToReceiveVideo: false,
+    //   },
+    // };
     const options = {
       media: {
         stream: inputStream,
         constraints: {
-          audio: true,
+          audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+          },
           video: false,
         },
         render: {
@@ -619,8 +640,14 @@ export default class SIPBridge extends BaseAudioBridge {
         return this.changeInputDevice(device.deviceId, deviceLabel);
       });
     };
-
-    return navigator.mediaDevices.getUserMedia({ audio: true }).then(handleMediaSuccess);
+    // LMTA
+    // return navigator.mediaDevices.getUserMedia({ audio: true }).then(handleMediaSuccess);
+    return navigator.mediaDevices.getUserMedia({ audio: {
+                                                    autoGainControl: false,
+                                                    echoCancellation: false,
+                                                    noiseSuppression: false
+                                                    } 
+                                                }).then(handleMediaSuccess);
   }
 
   changeInputDevice(deviceId, deviceLabel) {
