@@ -69,6 +69,12 @@ class AudioStreamVolume extends Component {
 
     const { deviceId } = this.props;
 
+    if (deviceId) {
+      constraints.audio = {
+        deviceId,
+      };
+    }
+
     return navigator.mediaDevices
       .getUserMedia(constraints)
       .then(this.handleConnectStreamToProcessor)
