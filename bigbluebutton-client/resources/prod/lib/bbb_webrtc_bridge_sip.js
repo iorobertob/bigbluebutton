@@ -263,7 +263,14 @@ function setUserAgentListeners(callback, makeCallFunc) {
 function getUserMicMedia(getUserMicMediaSuccess, getUserMicMediaFailure) {
 	if (userMicMedia == undefined) {
 		if (SIP.WebRTC.isSupported()) {
-			SIP.WebRTC.getUserMedia({audio:true, video:false}, getUserMicMediaSuccess, getUserMicMediaFailure);
+			// LMTA
+			// SIP.WebRTC.getUserMedia({audio:true, video:false}, getUserMicMediaSuccess, getUserMicMediaFailure);
+			SIP.WebRTC.getUserMedia({audio:{
+						                autoGainControl: false,
+						                echoCancellation: false,
+						                noiseSuppression: false
+						             }, 
+						             video:false}, getUserMicMediaSuccess, getUserMicMediaFailure);
 		} else {
 			console.log("getUserMicMedia: webrtc not supported");
 			getUserMicMediaFailure("WebRTC is not supported");

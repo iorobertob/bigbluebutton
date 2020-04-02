@@ -60,16 +60,14 @@ class AudioStreamVolume extends Component {
     this.source = null;
 
     const constraints = {
-      audio: true,
+      audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+             },
     };
 
     const { deviceId } = this.props;
-
-    if (deviceId) {
-      constraints.audio = {
-        deviceId,
-      };
-    }
 
     return navigator.mediaDevices
       .getUserMedia(constraints)
