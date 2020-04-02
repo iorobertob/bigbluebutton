@@ -11288,22 +11288,22 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
     }
 
     // LMTA
-    // return {
-    //   constraints: {
-    //     audio: bothHaveTracks.call(this, 'getAudioTracks'),
-    //     video: bothHaveTracks.call(this, 'getVideoTracks')
-    //   }
-    // };
     return {
       constraints: {
-        audio: {
-                autoGainControl: false,
-                echoCancellation: false,
-                noiseSuppression: false
-             },
+        audio: bothHaveTracks.call(this, 'getAudioTracks'),
         video: bothHaveTracks.call(this, 'getVideoTracks')
       }
     };
+    // return {
+    //   constraints: {
+    //     audio: {
+    //             autoGainControl: false,
+    //             echoCancellation: false,
+    //             noiseSuppression: false
+    //          },
+    //     video: bothHaveTracks.call(this, 'getVideoTracks')
+    //   }
+    // };
 
 
   }},
