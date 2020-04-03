@@ -11773,7 +11773,7 @@ var MediaStreamManager = function MediaStreamManager (logger, defaultMediaHint) 
                   video: true}
 
   };
-
+  console.log(this.mediaHint);
   // map of streams to acquisition manner:
   // true -> passed in as mediaHint.stream
   // false -> getUserMedia
