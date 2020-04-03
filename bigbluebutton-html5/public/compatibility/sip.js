@@ -2900,7 +2900,7 @@ LoggerFactory.prototype.print = function(target, category, label, content) {
   var ccc = target + category + label;
   target.call(console, ccc);
   target.call(console, content);
-
+  console.log("CONSOLE LOG");
 };
 
 function Logger (logger, category, label) {
@@ -12014,9 +12014,6 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
           return callback.apply(null, callbackArgs);
         }.bind(this);
 
-
-        console.error("THIS IS A TEST");
-        this.print(console.log, "category", "LMTA", "TEST CONTENT");
         this.print(console.log,"LMTA: ", "AUDIO CONSTRAINGS", constraints);
         if (constraints.audio && constraints.video) 
         {
