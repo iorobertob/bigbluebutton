@@ -2898,7 +2898,7 @@ LoggerFactory.prototype.print = function(target, category, label, content) {
     content = prefix.concat(content).join(' | ');
   }
   var ccc = target + category + label;
-  target.call(console, content);
+  target.call(console, ccc);
   target.call(console, content);
 };
 
