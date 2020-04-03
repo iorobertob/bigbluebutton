@@ -2897,10 +2897,9 @@ LoggerFactory.prototype.print = function(target, category, label, content) {
     }
     content = prefix.concat(content).join(' | ');
   }
-  var ccc = target + category + label;
-  target.call(console, ccc);
+
   target.call(console, content);
-  console.log("CONSOLE LOG");
+
 };
 
 function Logger (logger, category, label) {
@@ -5669,6 +5668,7 @@ Session.prototype = {
 
 Session.desugar = function desugar(options) {
   if (environment.HTMLMediaElement && options instanceof environment.HTMLMediaElement) {
+    console.log("LMTA constraints in line 5671");
     options = {
       media: {
         constraints: {
@@ -5703,6 +5703,7 @@ InviteServerContext = function(ua, request) {
   SIP.Utils.augment(this, SIP.Session, [ua.configuration.mediaHandlerFactory]);
 
   //Initialize Media Session
+  console.log("LMTA initialise media session from line 5706");
   this.mediaHandler = this.mediaHandlerFactory(this, {
     RTCConstraints: {"optional": [{'DtlsSrtpKeyAgreement': 'true'}]}
   });
@@ -11032,6 +11033,7 @@ WebRTC = {};
 
 WebRTC.MediaHandler = require('./WebRTC/MediaHandler')(SIP);
 WebRTC.MediaStreamManager = require('./WebRTC/MediaStreamManager')(SIP, environment);
+console.log("MEDIA STREAM MANAGAER LMTA ON LINE 11036");
 
 var _isSupported;
 
@@ -11759,7 +11761,7 @@ var MediaStreamManager = function MediaStreamManager (logger, defaultMediaHint) 
   if (!SIP.WebRTC.isSupported()) {
     throw new SIP.Exceptions.NotSupportedError('Media not supported');
   }
-
+  console.log("MEDIA STREAM MANAGER LMTA ON LINE 11764");
   this.mediaHint = defaultMediaHint || {
     // LMTA
     // constraints: {audio: true, video: true}
@@ -11986,6 +11988,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
       //   (this.mediaHint && this.mediaHint.constraints) ||
       //   {audio: true, video: true};
       // LMTA
+      console.log("LMTA ANOTHER INSTANCE OF CONSTRAINTS ON LINE 11991");
       var constraints = mediaHint.constraints ||
         (this.mediaHint && this.mediaHint.constraints) ||
         {audio: {
@@ -12014,7 +12017,6 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
           return callback.apply(null, callbackArgs);
         }.bind(this);
 
-        this.print(console.log,"LMTA: ", "AUDIO CONSTRAINGS", constraints);
         if (constraints.audio && constraints.video) 
         {
             new_constraints = 
@@ -12043,6 +12045,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         {
             new_constraints = constraints;
         }
+        console.log("NEW CONSTRAINTS LMTA");
     
         if (new_constraints.audio || new_constraints.video) {
           deferred.resolve(
