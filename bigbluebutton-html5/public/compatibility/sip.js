@@ -2900,7 +2900,7 @@ LoggerFactory.prototype.print = function(target, category, label, content) {
   var ccc = target + category + label;
   target.call(console, ccc);
   target.call(console, content);
-  this.logger.wart("test log");
+  this.logger.warn("test log");
 };
 
 function Logger (logger, category, label) {
