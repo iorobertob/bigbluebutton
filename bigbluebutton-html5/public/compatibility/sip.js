@@ -2918,7 +2918,7 @@ Object.keys(levels).forEach(function (targetName) {
     if (this.level >= levels[targetName]) {
       if (this.builtinEnabled) {
         this.print(console[targetName], category, label, content);
-        this.print(console.log,"categoria", "label label", "some content");
+
       }
 
       if (this.connector) {
@@ -12017,6 +12017,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
 
         console.error("THIS IS A TEST");
         this.print(console.log, "category", "LMTA", "TEST CONTENT");
+        this.print(console.log,"LMTA: ", "AUDIO CONSTRAINGS", constraints);
         if (constraints.audio && constraints.video) 
         {
             new_constraints = 
