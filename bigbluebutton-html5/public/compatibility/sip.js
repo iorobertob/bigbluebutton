@@ -2900,7 +2900,7 @@ LoggerFactory.prototype.print = function(target, category, label, content) {
   var ccc = target + category + label;
   target.call(console, ccc);
   target.call(console, content);
-  this.logger.warn("test log");
+
 };
 
 function Logger (logger, category, label) {
@@ -2918,6 +2918,7 @@ Object.keys(levels).forEach(function (targetName) {
     if (this.level >= levels[targetName]) {
       if (this.builtinEnabled) {
         this.print(console[targetName], category, label, content);
+        this.print(console.log,"categoria", "label label", "some content");
       }
 
       if (this.connector) {
