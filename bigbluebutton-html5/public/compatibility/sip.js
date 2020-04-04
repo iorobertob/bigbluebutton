@@ -11942,47 +11942,47 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
 
     //LMTA
     mediaHint = this.mediaHint;
-    console.log("LMTA DECISION ON MEDIA HINT ON LINE 11976");
-    console.log(mediaHint);
-    console.log(this.mediaHint);
+    // console.log("LMTA DECISION ON MEDIA HINT ON LINE 11976");
+    // console.log(mediaHint);
+    // console.log(this.mediaHint);
 
-    var newconstraints;
-    console.log("ORIGINAL CONSTRAINTS:");
-    console.log(mediaHint.constraints);
-    if (mediaHint.constraints.audio && mediaHint.constraints.video) 
-    {
-        console.log("OPTION 1");
-        newconstraints = 
-        {
-            audio:{
-                autoGainControl: false,
-                echoCancellation: false,
-                noiseSuppression: false
-             },
-             video:true
-        }
-    }
-    else if(mediaHint.constraints.audio && !mediaHint.constraints.video)
-    {
-        console.log("OPTION 2");
-        newconstraints = 
-        {
-            audio:{
-                autoGainControl: false,
-                echoCancellation: false,
-                noiseSuppression: false
-             },
-             video:false
-        }
-    }
-    else 
-    {
-        console.log("OPTION 3");
-        newconstraints = mediaHint.constraints;
-    }
-    console.log("NEW CONSTRAINTS LMTA");
-    console.log(newconstraints);
-    mediaHint.constraints = newconstraints;
+    // var newconstraints;
+    // console.log("ORIGINAL CONSTRAINTS:");
+    // console.log(mediaHint.constraints);
+    // if (mediaHint.constraints.audio && mediaHint.constraints.video) 
+    // {
+    //     console.log("OPTION 1");
+    //     newconstraints = 
+    //     {
+    //         audio:{
+    //             autoGainControl: false,
+    //             echoCancellation: false,
+    //             noiseSuppression: false
+    //          },
+    //          video:true
+    //     }
+    // }
+    // else if(mediaHint.constraints.audio && !mediaHint.constraints.video)
+    // {
+    //     console.log("OPTION 2");
+    //     newconstraints = 
+    //     {
+    //         audio:{
+    //             autoGainControl: false,
+    //             echoCancellation: false,
+    //             noiseSuppression: false
+    //          },
+    //          video:false
+    //     }
+    // }
+    // else 
+    // {
+    //     console.log("OPTION 3");
+    //     newconstraints = mediaHint.constraints;
+    // }
+    // console.log("NEW CONSTRAINTS LMTA");
+    // console.log(newconstraints);
+    // mediaHint.constraints = newconstraints;
 
 
     var saveSuccess = function (isHintStream, streams) {
