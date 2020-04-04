@@ -11764,13 +11764,13 @@ var MediaStreamManager = function MediaStreamManager (logger, defaultMediaHint) 
   console.log("MEDIA STREAM MANAGER LMTA ON LINE 11764");
   this.mediaHint = defaultMediaHint || {
     // LMTA
-    // constraints: {audio: true, video: true}
-    constraints: {audio: {
-                        autoGainControl: false,
-                        echoCancellation: false,
-                        noiseSuppression: false
-                  }, 
-                  video: true}
+    constraints: {audio: true, video: true}
+    // constraints: {audio: {
+    //                     autoGainControl: false,
+    //                     echoCancellation: false,
+    //                     noiseSuppression: false
+    //               }, 
+    //               video: true}
 
   };
   console.log("DEFAULT:");
