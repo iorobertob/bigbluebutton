@@ -11976,9 +11976,48 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
           return callback.apply(null, callbackArgs);
         }.bind(this);
 
-        if (constraints.audio || constraints.video) {
+        // LMTA
+        var new_constraints;
+        console.log("ORIGINAL CONSTRAINTS:");
+        console.log(constraints);
+        if (constraints.audio && constraints.video) 
+        {
+            console.log("OPTION 1");
+            new_constraints = 
+            {
+                audio:{
+                    autoGainControl: false,
+                    echoCancellation: false,
+                    noiseSuppression: false
+                 },
+                 video:true
+            }
+        }
+        else if(constraints.audio && !constraints.video)
+        {
+            console.log("OPTION 2");
+            new_constraints = 
+            {
+                audio:{
+                    autoGainControl: false,
+                    echoCancellation: false,
+                    noiseSuppression: false
+                 },
+                 video:false
+            }
+        }
+        else 
+        {
+            console.log("OPTION 3");
+            new_constraints = constraints;
+        }
+        console.log("NEW CONSTRAINTS LMTA");
+        console.log(new_constraints);
+        // new_constraints = constraints;
+    
+        if (new_constraints.audio || new_constraints.video) {
           deferred.resolve(
-            SIP.WebRTC.getUserMedia(constraints)
+            SIP.WebRTC.getUserMedia(new_constraints)
             .then(
               emitThenCall.bind(this, 'userMedia', saveSuccess.bind(null, false)),
               emitThenCall.bind(this, 'userMediaFailed', function(e){throw e;})
