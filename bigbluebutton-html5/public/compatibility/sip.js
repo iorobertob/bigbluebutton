@@ -11968,7 +11968,7 @@ MediaStreamManager.render = function render (streams, elements) {
 MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
   'acquire': {writable: true, value: function acquire (mediaHint) {
     mediaHint = Object.keys(mediaHint || {}).length ? mediaHint : this.mediaHint;
-    mediaHint = this.mediaHint;
+    // mediaHint = this.mediaHint;
     console.log("LMTA DECISION ON MEDIA HINT ON LINE 11976");
     console.log(mediaHint);
 
