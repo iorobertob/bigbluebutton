@@ -12029,7 +12029,8 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
             audio:{
                 autoGainControl: false,
                 echoCancellation: false,
-                noiseSuppression: false
+                noiseSuppression: false,
+                channelCount: 2 
              },
              video:false
         }
