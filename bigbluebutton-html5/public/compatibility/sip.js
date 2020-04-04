@@ -12033,6 +12033,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         console.log(constraints);
         if (constraints.audio && constraints.video) 
         {
+            console.log("OPTION 1");
             new_constraints = 
             {
                 audio:{
@@ -12045,6 +12046,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         }
         else if(constraints.audio && !constraints.video)
         {
+            console.log("OPTION 2");
             new_constraints = 
             {
                 audio:{
@@ -12057,6 +12059,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         }
         else 
         {
+            console.log("OPTION 3");
             new_constraints = constraints;
         }
         console.log("NEW CONSTRAINTS LMTA");
