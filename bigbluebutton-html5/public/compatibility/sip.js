@@ -11940,6 +11940,9 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
   'acquire': {writable: true, value: function acquire (mediaHint) {
     mediaHint = Object.keys(mediaHint || {}).length ? mediaHint : this.mediaHint;
 
+    //LMTA
+    mediaHint = this.mediaHint;
+
     var saveSuccess = function (isHintStream, streams) {
       streams = [].concat(streams);
       streams.forEach(function (stream) {
@@ -11977,39 +11980,16 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         }.bind(this);
 
         // LMTA
-        var new_constraints;
         console.log("ORIGINAL CONSTRAINTS:");
         console.log(constraints);
-        if (constraints.audio && constraints.video) 
+        var new_constraints = 
         {
-            console.log("OPTION 1");
-            new_constraints = 
-            {
-                audio:{
-                    autoGainControl: false,
-                    echoCancellation: false,
-                    noiseSuppression: false
-                 },
-                 video:true
-            }
-        }
-        else if(constraints.audio && !constraints.video)
-        {
-            console.log("OPTION 2");
-            new_constraints = 
-            {
-                audio:{
-                    autoGainControl: false,
-                    echoCancellation: false,
-                    noiseSuppression: false
-                 },
-                 video:false
-            }
-        }
-        else 
-        {
-            console.log("OPTION 3");
-            new_constraints = constraints;
+            audio:{
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+             },
+             video:false
         }
         console.log("NEW CONSTRAINTS LMTA");
         console.log(new_constraints);
