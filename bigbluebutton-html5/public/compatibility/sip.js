@@ -12017,7 +12017,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
 
     // mediaHint.constraints.getAudioTracks()[0].enabled = false;
     // mediaHint.constraints.getAudioTracks()[0].constraints = new_constraints;
-    console.log(mediaHint.stream.getAudioTracks());
+    // console.log(mediaHint.stream.getAudioTracks());
 
     // mediaHint.constraints.getAudioTracks()[0].apply(new_constraints);
 
