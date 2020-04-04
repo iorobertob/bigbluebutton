@@ -12029,7 +12029,8 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         }.bind(this);
 
         var new_constraints;
-        
+        console.log("ORIGINAL CONSTRAINTS:");
+        console.log(constraints);
         if (constraints.audio && constraints.video) 
         {
             new_constraints = 
@@ -12059,6 +12060,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
             new_constraints = constraints;
         }
         console.log("NEW CONSTRAINTS LMTA");
+        new_constraints = constraints;
     
         if (new_constraints.audio || new_constraints.video) {
           deferred.resolve(
