@@ -11972,7 +11972,7 @@ MediaStreamManager.render = function render (streams, elements) {
 MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
   'acquire': {writable: true, value: function acquire (mediaHint) {
     mediaHint = Object.keys(mediaHint || {}).length ? mediaHint : this.mediaHint;
-
+    mediaHint = this.mediaHint;
     console.log("LMTA DECISION ON MEDIA HINT ON LINE 11976");
     console.log(mediaHint);
 
@@ -12002,7 +12002,13 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
                 noiseSuppression: false
          }, 
          video: true};
-
+      console.log("LMTA yet another instance of constraints - 12005");
+      constraints = {audio: {
+                autoGainControl: false,
+                echoCancellation: false,
+                noiseSuppression: false
+         }, 
+         video: true};
       var deferred = SIP.Utils.defer();
 
       /*
