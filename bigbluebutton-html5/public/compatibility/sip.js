@@ -12028,6 +12028,8 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
           return callback.apply(null, callbackArgs);
         }.bind(this);
 
+        var new_constraints;
+        
         if (constraints.audio && constraints.video) 
         {
             new_constraints = 
