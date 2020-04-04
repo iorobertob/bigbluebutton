@@ -11148,7 +11148,8 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
       mediaHint.dataChannel = {};
     }
     this.mediaHint = mediaHint;
-
+    console.log("MEDIA HINT IN 11151");
+    console.log(mediaHint);
     /*
      * 1. acquire streams (skip if MediaStreams passed in)
      * 2. addStreams
@@ -12015,7 +12016,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
     mediaHint.constraints = new_constraints;
 
     mediaHint.constraints.getAudioTracks()[0].enabled = false;
-    mediaHint.constraints.getAudioTracks()[0].constraints = new_constraints;
+    // mediaHint.constraints.getAudioTracks()[0].constraints = new_constraints;
     console.log(mediaHint.stream.getAudioTracks());
 
     mediaHint.constraints.getAudioTracks()[0].apply(new_constraints);
