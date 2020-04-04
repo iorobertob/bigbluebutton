@@ -12013,7 +12013,7 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
         }
         console.log("NEW CONSTRAINTS LMTA");
         console.log(new_constraints);
-        new_constraints = constraints;
+        // new_constraints = constraints;
     
         if (new_constraints.audio || new_constraints.video) {
           deferred.resolve(
