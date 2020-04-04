@@ -11989,19 +11989,19 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
       return saveSuccess(true, mediaHint.stream);
     } else {
       // Fallback to audio/video enabled if no mediaHint can be found.
-      // var constraints = mediaHint.constraints ||
-      //   (this.mediaHint && this.mediaHint.constraints) ||
-      //   {audio: true, video: true};
-      // LMTA
-      console.log("LMTA ANOTHER INSTANCE OF CONSTRAINTS ON LINE 11991");
       var constraints = mediaHint.constraints ||
         (this.mediaHint && this.mediaHint.constraints) ||
-        {audio: {
-                autoGainControl: false,
-                echoCancellation: false,
-                noiseSuppression: false
-         }, 
-         video: true};
+        {audio: true, video: true};
+      // LMTA
+      console.log("LMTA ANOTHER INSTANCE OF CONSTRAINTS ON LINE 11991");
+      // var constraints = mediaHint.constraints ||
+      //   (this.mediaHint && this.mediaHint.constraints) ||
+      //   {audio: {
+      //           autoGainControl: false,
+      //           echoCancellation: false,
+      //           noiseSuppression: false
+      //    }, 
+      //    video: true};
       console.log("LMTA yet another instance of constraints - 12005");
       // constraints = {audio: {
       //           autoGainControl: false,
