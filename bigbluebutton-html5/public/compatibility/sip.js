@@ -5672,11 +5672,7 @@ Session.desugar = function desugar(options) {
     options = {
       media: {
         constraints: {
-          audio: {
-                autoGainControl: false,
-                echoCancellation: false,
-                noiseSuppression: false
-          },
+          audio: true,
           video: options.tagName === 'VIDEO'
         },
         render: {
