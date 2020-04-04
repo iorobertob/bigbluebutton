@@ -12003,12 +12003,12 @@ MediaStreamManager.prototype = Object.create(SIP.EventEmitter.prototype, {
          }, 
          video: true};
       console.log("LMTA yet another instance of constraints - 12005");
-      constraints = {audio: {
-                autoGainControl: false,
-                echoCancellation: false,
-                noiseSuppression: false
-         }, 
-         video: true};
+      // constraints = {audio: {
+      //           autoGainControl: false,
+      //           echoCancellation: false,
+      //           noiseSuppression: false
+      //    }, 
+      //    video: true};
       var deferred = SIP.Utils.defer();
 
       /*
